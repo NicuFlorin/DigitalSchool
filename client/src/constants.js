@@ -1,0 +1,14 @@
+export const SignIn = "SignIn";
+export const SignOut = "SignOut";
+export const Register = "Register";
+export const GetCurrentUserPending = "GetCurrentUserPending";
+export const GetCurrentUserSuccess = "GetCurrentUserSuccess";
+export const GetCurrentUserFailed = "GetCurrentUserFailed";
+export const SignInUserPending = "SignInUserPending";
+export const SignInUserSuccess = "SignInUserSuccess";
+export const SignInUserFailed = "SignInUserFailed";
+export const RegisterUserPending = "RegisterUserPending";
+export const RegisterUserSuccess = "RegisterUserSuccess";
+export const RegisterUserFailed = "RegisterUserFailed";
+export const OpenDrawer = "OpenDrawer";
+export const CloseDrawer = "CloseDrawer";

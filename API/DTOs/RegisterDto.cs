@@ -12,5 +12,8 @@ namespace API.DTOs
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
+        public int schoolId { get; set; } = -1;
+
+        public IEnumerable<string> Roles { get; set; } = new string[]{"Member"};
     }
 }
