@@ -55,9 +55,6 @@ namespace API.Data.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CohortId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -101,9 +98,6 @@ namespace API.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
@@ -116,16 +110,12 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CohortId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -145,6 +135,28 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("API.Entities.Choice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("isCorrect")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Choice");
+                });
+
             modelBuilder.Entity("API.Entities.Cohort", b =>
                 {
                     b.Property<int>("Id")
@@ -153,6 +165,9 @@ namespace API.Data.Migrations
 
                     b.Property<int>("ContextId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -176,14 +191,9 @@ namespace API.Data.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Context");
                 });
@@ -209,7 +219,16 @@ namespace API.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int>("NoOfSections")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isWeekFormat")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -223,18 +242,269 @@ namespace API.Data.Migrations
                     b.ToTable("Course");
                 });
 
-            modelBuilder.Entity("API.Entities.School", b =>
+            modelBuilder.Entity("API.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Mark")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("QuizId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("WrongAnswearSanction")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("hasMultipleAnswears")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("shortAnswear")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("School");
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("API.Entities.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("WeekEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("WeekStart")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Section");
+                });
+
+            modelBuilder.Entity("API.Entities.StudentEnrollment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CohortId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CohortId");
+
+                    b.ToTable("StudentEnrollment");
+                });
+
+            modelBuilder.Entity("API.Entities.Upload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateOfUpload")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Upload");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Upload");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Answear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ChoiceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuestionAnswearId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChoiceId");
+
+                    b.HasIndex("QuestionAnswearId");
+
+                    b.ToTable("Answear");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.AssignmentSubmit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AssignmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FileId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Grade")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("FileId")
+                        .IsUnique();
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("AssignmentSubmit");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.FileUpload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UploadId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FolderId");
+
+                    b.HasIndex("UploadId");
+
+                    b.ToTable("FileUpload");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuestionAnswear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AnswearId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuizSubmitId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShortAnswear")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("QuizSubmitId");
+
+                    b.ToTable("QuestionAnswear");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuizSubmit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateOpened")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateSubmit")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("FinalGrade")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("IndexCurrentQuestion")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuizId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("QuizSubmit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -321,19 +591,105 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("API.Entities.AppUser", b =>
+            modelBuilder.Entity("API.Entities.Assignment", b =>
                 {
-                    b.HasOne("API.Entities.Cohort", null)
-                        .WithMany("Students")
-                        .HasForeignKey("CohortId");
+                    b.HasBaseType("API.Entities.Upload");
 
-                    b.HasOne("API.Entities.School", "School")
-                        .WithMany("Users")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
 
-                    b.Navigation("School");
+                    b.Property<double>("GradeToPass")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Assignment_GradeToPass");
+
+                    b.Property<double>("MaximumGrade")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Assignment_MaximumGrade");
+
+                    b.Property<DateTime>("SubmissionFrom")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasDiscriminator().HasValue("Assignment");
+                });
+
+            modelBuilder.Entity("API.Entities.Attendance", b =>
+                {
+                    b.HasBaseType("API.Entities.Upload");
+
+                    b.Property<DateTime>("Due")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasDiscriminator().HasValue("Attendance");
+                });
+
+            modelBuilder.Entity("API.Entities.Quiz", b =>
+                {
+                    b.HasBaseType("API.Entities.Upload");
+
+                    b.Property<bool>("AllowGoingBack")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CloseQuiz")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("GradeToPass")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("MaximumGrade")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("OpenQuiz")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("ShuffleActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TimeLimit")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasDiscriminator().HasValue("Quiz");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Folder", b =>
+                {
+                    b.HasBaseType("API.Entities.Upload");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasDiscriminator().HasValue("Folder");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Resource", b =>
+                {
+                    b.HasBaseType("API.Entities.Upload");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasDiscriminator().HasValue("Resource");
                 });
 
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
@@ -355,6 +711,17 @@ namespace API.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.Choice", b =>
+                {
+                    b.HasOne("API.Entities.Question", "Question")
+                        .WithMany("Choices")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("API.Entities.Cohort", b =>
                 {
                     b.HasOne("API.Entities.Context", "Context")
@@ -372,15 +739,7 @@ namespace API.Data.Migrations
                         .WithMany("SubCategory")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("API.Entities.School", "School")
-                        .WithMany("Categories")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Parent");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("API.Entities.Course", b =>
@@ -399,15 +758,157 @@ namespace API.Data.Migrations
 
                     b.HasOne("API.Entities.AppUser", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
 
                     b.Navigation("Category");
 
                     b.Navigation("Cohort");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("API.Entities.Question", b =>
+                {
+                    b.HasOne("API.Entities.Uploads.FileUpload", "Image")
+                        .WithOne("Question")
+                        .HasForeignKey("API.Entities.Question", "ImageId");
+
+                    b.HasOne("API.Entities.Quiz", "Quiz")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+
+                    b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("API.Entities.Section", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Sections")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("API.Entities.StudentEnrollment", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "AppUser")
+                        .WithMany("StudentEnrolements")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Cohort", "Cohort")
+                        .WithMany("Students")
+                        .HasForeignKey("CohortId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Cohort");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Answear", b =>
+                {
+                    b.HasOne("API.Entities.Choice", "Choice")
+                        .WithMany("Answears")
+                        .HasForeignKey("ChoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Uploads.QuestionAnswear", "QuestionAnswear")
+                        .WithMany("Answears")
+                        .HasForeignKey("QuestionAnswearId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Choice");
+
+                    b.Navigation("QuestionAnswear");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.AssignmentSubmit", b =>
+                {
+                    b.HasOne("API.Entities.Assignment", "Assignment")
+                        .WithMany("AssignmentSubmits")
+                        .HasForeignKey("AssignmentId");
+
+                    b.HasOne("API.Entities.Uploads.FileUpload", "File")
+                        .WithOne("AssignmentSubmit")
+                        .HasForeignKey("API.Entities.Uploads.AssignmentSubmit", "FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.StudentEnrollment", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assignment");
+
+                    b.Navigation("File");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.FileUpload", b =>
+                {
+                    b.HasOne("API.Entities.Uploads.Folder", "Folder")
+                        .WithMany()
+                        .HasForeignKey("FolderId");
+
+                    b.HasOne("API.Entities.Upload", "Upload")
+                        .WithMany("Files")
+                        .HasForeignKey("UploadId");
+
+                    b.Navigation("Folder");
+
+                    b.Navigation("Upload");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuestionAnswear", b =>
+                {
+                    b.HasOne("API.Entities.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Uploads.QuizSubmit", "QuizSubmit")
+                        .WithMany("Answears")
+                        .HasForeignKey("QuizSubmitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+
+                    b.Navigation("QuizSubmit");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuizSubmit", b =>
+                {
+                    b.HasOne("API.Entities.Quiz", "Quiz")
+                        .WithMany("QuizSubmits")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.StudentEnrollment", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -446,6 +947,97 @@ namespace API.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("API.Entities.Assignment", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Assignments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", "Section")
+                        .WithMany("Assignments")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("API.Entities.Attendance", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Attendances")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", "Section")
+                        .WithMany("Attendances")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("API.Entities.Quiz", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Quizzes")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", "Section")
+                        .WithMany("Quizzes")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Folder", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Folders")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Uploads.Folder", "Parent")
+                        .WithMany("Folders")
+                        .HasForeignKey("ParentId");
+
+                    b.HasOne("API.Entities.Section", "Section")
+                        .WithMany("Folders")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Resource", b =>
+                {
+                    b.HasOne("API.Entities.Course", "Course")
+                        .WithMany("Resources")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", "Section")
+                        .WithMany("Resources")
+                        .HasForeignKey("SectionId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Section");
+                });
+
             modelBuilder.Entity("API.Entities.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -453,7 +1045,14 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
+                    b.Navigation("StudentEnrolements");
+
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("API.Entities.Choice", b =>
+                {
+                    b.Navigation("Answears");
                 });
 
             modelBuilder.Entity("API.Entities.Cohort", b =>
@@ -472,11 +1071,76 @@ namespace API.Data.Migrations
                     b.Navigation("SubCategory");
                 });
 
-            modelBuilder.Entity("API.Entities.School", b =>
+            modelBuilder.Entity("API.Entities.Course", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("Assignments");
 
-                    b.Navigation("Users");
+                    b.Navigation("Attendances");
+
+                    b.Navigation("Folders");
+
+                    b.Navigation("Quizzes");
+
+                    b.Navigation("Resources");
+
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("API.Entities.Question", b =>
+                {
+                    b.Navigation("Choices");
+                });
+
+            modelBuilder.Entity("API.Entities.Section", b =>
+                {
+                    b.Navigation("Assignments");
+
+                    b.Navigation("Attendances");
+
+                    b.Navigation("Folders");
+
+                    b.Navigation("Quizzes");
+
+                    b.Navigation("Resources");
+                });
+
+            modelBuilder.Entity("API.Entities.Upload", b =>
+                {
+                    b.Navigation("Files");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.FileUpload", b =>
+                {
+                    b.Navigation("AssignmentSubmit");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuestionAnswear", b =>
+                {
+                    b.Navigation("Answears");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.QuizSubmit", b =>
+                {
+                    b.Navigation("Answears");
+                });
+
+            modelBuilder.Entity("API.Entities.Assignment", b =>
+                {
+                    b.Navigation("AssignmentSubmits");
+                });
+
+            modelBuilder.Entity("API.Entities.Quiz", b =>
+                {
+                    b.Navigation("Questions");
+
+                    b.Navigation("QuizSubmits");
+                });
+
+            modelBuilder.Entity("API.Entities.Uploads.Folder", b =>
+                {
+                    b.Navigation("Folders");
                 });
 #pragma warning restore 612, 618
         }

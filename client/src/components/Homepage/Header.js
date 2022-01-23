@@ -9,6 +9,7 @@ export default function Header(props) {
         alignItems: "center",
         padding: "30px 0",
         display: "flex",
+        width: "100%",
       }}
     >
       <Typography

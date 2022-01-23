@@ -12,5 +12,10 @@ namespace API.Interfaces
         Task<bool> AddCategory(Context Category);
         Task<bool> AddCourse(CourseDto course);
         Task<Context> GetCategory(int id);
+        Task<CourseDto> GetCourseById(int id);
+        Task<IEnumerable<CourseDto>> GetAllForAdmin();
+        Task<IEnumerable<CourseDto>> GetAllForTeacher(int id_teacher);
+        Task<IEnumerable<CourseDto>> GetAllForStudent(int id_student);
+    
     }
 }

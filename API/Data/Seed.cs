@@ -14,15 +14,12 @@ namespace API.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(ISchoolRepository schoolRepository, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
-            if (await schoolRepository.Exists())
-            {
-                return;
-            }
-            var schoolData = await System.IO.File.ReadAllTextAsync("Data/SeedData.json");
-            var schools = JsonSerializer.Deserialize<List<School>>(schoolData);
-            if (schools == null) return;
+
+            var userData = await System.IO.File.ReadAllTextAsync("Data/SeedData.json");
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            if (users == null) return;
             var roles = new List<AppRole>
             {
                 new AppRole{Name="Admin"},
@@ -37,26 +34,21 @@ namespace API.Data
             {
                 await roleManager.CreateAsync(role);
             }
-            foreach (var school in schools)
-            {
-                var schoolDto = new SchoolDto
-                {
-                    Name = school.Name != null ? school.Name : "Default"
-                };
-                int idSchool = await schoolRepository.AddSchool(schoolDto);
-                if (school.Users != null)
-                {
-                    foreach (var user in school.Users)
-                    {
-                        user.UserName = user.UserName.ToLower();
-                        user.SchoolId = idSchool;
-                        await userManager.CreateAsync(user, "Parola_123");
 
-                        await userManager.AddToRoleAsync(user, "Member");
-                    }
-                    await userManager.AddToRoleAsync(school.Users.ElementAt(0), "Admin");
-                }
+
+
+
+            foreach (var user in users)
+            {
+                user.UserName = user.UserName.ToLower();
+
+                await userManager.CreateAsync(user, "Parola_123");
+
+                await userManager.AddToRoleAsync(user, "Member");
             }
+            await userManager.AddToRoleAsync(users.ElementAt(0), "Admin");
+
+
 
         }
     }

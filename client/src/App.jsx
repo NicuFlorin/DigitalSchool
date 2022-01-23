@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import PrivateRoute from "./components/PrivateRoute";
-import { getCurrentUser } from "./actions/loginActions";
+import { getCurrentUser } from "./_actions/loginActions";
 import { Box } from "@mui/system";
 import { CssBaseline } from "@mui/material";
-import DrawerComponent from "./components/Drawer/Drawer";
-import Navbar from "./components/Navbar";
 import Drawer from "./components/Drawer/Drawer";
+
+import Navbar from "./components/Navbar";
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.signInReducer.loggedIn,
@@ -35,16 +35,17 @@ function App(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {loggedIn && <Navbar />}
-      {loggedIn && <Drawer />}
+
       <Router>
+        {loggedIn && <Navbar />}
+        {loggedIn && <Drawer />}
         <Switch>
           {routes.map((route, index) => {
             return (
               <PrivateRoute
                 key={index}
                 path={route.path}
-                exact={true}
+                exact={route.exact}
                 // navbar={route.navbar}
                 component={route.component}
                 loggedIn={route.private ? loggedIn : true}

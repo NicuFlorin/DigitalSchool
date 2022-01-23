@@ -12,7 +12,7 @@ import { maxWidth } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { register } from "../../actions/loginActions";
+import { register } from "../../_actions/loginActions";
 
 const theme = createTheme();
 const mapStateToProps = (state) => {

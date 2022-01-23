@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signOut } from "../actions/loginActions";
+import { signOut } from "../_actions/loginActions";
 import { useHistory } from "react-router-dom";
 import { Container, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -28,7 +28,7 @@ const Homepage = (props) => {
   };
   return (
     <div style={{ marginTop: 10 }}>
-      <Container component="main" maxWidth="lg">
+      <Container sx={{ width: "100%", position: "absolute" }}>
         <Header />
         <div style={{ marginTop: 50 }}></div>
         <MainSection style={{ marginTop: "50px" }} />

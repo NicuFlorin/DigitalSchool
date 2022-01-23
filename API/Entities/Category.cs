@@ -12,8 +12,7 @@ namespace API.Entities
         public IEnumerable<Context> SubCategory { get; set; }
         public IEnumerable<Course> Courses { get; set; }
         public IEnumerable<Cohort> Cohorts { get; set; }
-        public School School { get; set; }
-        public int SchoolId { get; set; }
+    
 
     }
 }

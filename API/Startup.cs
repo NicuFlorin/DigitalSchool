@@ -39,6 +39,7 @@ namespace API
             services.AddApplicationService(config);
             services.AddControllers();
             services.AddIdentityService(config);
+            services.AddSignalR();
 
 
         }
@@ -50,7 +51,7 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

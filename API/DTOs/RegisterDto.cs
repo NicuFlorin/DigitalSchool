@@ -10,10 +10,13 @@ namespace API.DTOs
     {
         [Required]
         public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         [Required]
         public string Password { get; set; }
-        public int schoolId { get; set; } = -1;
+     
 
-        public IEnumerable<string> Roles { get; set; } = new string[]{"Member"};
+
+        public IEnumerable<string> Roles { get; set; } = new string[] { "Member" };
     }
 }

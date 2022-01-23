@@ -13,6 +13,7 @@ namespace API.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
-        public int SchoolId { get; set; }
+    
+        public ICollection<RoleDto> UserRoles { get; set; }
     }
 }

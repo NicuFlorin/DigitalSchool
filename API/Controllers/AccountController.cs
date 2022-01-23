@@ -18,14 +18,14 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IMapper mapper;
-        private readonly ISchoolRepository schoolRepository;
+       
 
         private readonly ITokenService tokenService;
         private readonly SignInManager<AppUser> signInManager;
         private readonly UserManager<AppUser> userManager;
-        public AccountController(UserManager<AppUser> userManager, ISchoolRepository schoolRepository, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
-            this.schoolRepository = schoolRepository;
+          
             this.mapper = mapper;
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -41,11 +41,12 @@ namespace API.Controllers
                 return BadRequest("Username is taken");
             }
 
-
+            
 
             var user = this.mapper.Map<AppUser>(registerDto);
 
             user.UserName = registerDto.Username.ToLower();
+           
 
             var result = await this.userManager.CreateAsync(user, registerDto.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
@@ -57,6 +58,8 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = registerDto.Username,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
                 Id = user.Id,
                 Token = await this.tokenService.CreateToken(user)
             };
@@ -67,6 +70,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> login(LoginDto loginDto)
         {
             var user = await this.userManager.Users.SingleOrDefaultAsync(user => user.UserName == loginDto.Username);
+
             if (user == null)
             {
                 return BadRequest("Username or password is invalid!");
@@ -75,11 +79,14 @@ namespace API.Controllers
             var result = await this.signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!result.Succeeded) return Unauthorized();
 
+            var roles = await this.userManager.GetRolesAsync(user);
+
             return new UserDto
             {
                 Id = user.Id,
                 Username = loginDto.Username,
-                Token = await tokenService.CreateToken(user)
+                Token = await tokenService.CreateToken(user),
+                Roles = roles
             };
         }
 

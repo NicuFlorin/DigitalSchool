@@ -1,20 +1,22 @@
 import Drawer from "@mui/material/Drawer";
 import { styled, useTheme } from "@mui/material/styles";
-import * as React from "react";
+import React from "react";
 import { connect } from "react-redux";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { useHistory } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-
+import HomeIcon from "@mui/icons-material/Home";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import List from "@mui/material/List";
+import BuildIcon from "@mui/icons-material/Build";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
-import { closeDrawer } from "../../actions/openDrawer";
+import { closeDrawer } from "../../_actions/openDrawer";
 const drawerWidth = 240;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -39,6 +41,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const DrawerComponent = (props) => {
+  const history = useHistory();
   const theme = useTheme();
   const { isOpen, onCloseDrawer } = props;
 
@@ -72,25 +75,35 @@ const DrawerComponent = (props) => {
       </DrawerHeader>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <CalendarTodayIcon />
+          </ListItemIcon>
+          <ListItemText primary="Calendar" />
+        </ListItem>
+        <ListItem
+          onClick={() => {
+            history.push("/administration");
+            onCloseDrawer();
+          }}
+        >
+          <ListItemIcon>
+            <BuildIcon />
+          </ListItemIcon>
+          <ListItemText primary="Site administration" />
+        </ListItem>
       </List>
     </Drawer>
   );

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Pagination;
+using API.Params;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +32,16 @@ namespace API.Interfaces
 
         }
 
-        public Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            throw new NotImplementedException();
+            var query = this.context.Users.AsQueryable();
+            query = query
+                .Include(role=>role.UserRoles);
+
+            return await PageList<MemberDto>.
+                    CreateAsync(query.ProjectTo<MemberDto>(this.mapper.ConfigurationProvider)
+                                    .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
+
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)

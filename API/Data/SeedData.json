@@ -1,112 +1,103 @@
 [
-    {
-      "Name": "Default Name",
-      "Users": [
-        {
-          "UserName": "darlacarter@earthplex.com",
-          "FirstName": "Bennett",
-          "LastName": "Reed"
-        },
-        {
-          "UserName": "bowerstaylor@thredz.com",
-          "FirstName": "Farrell",
-          "LastName": "Weiss"
-        },
-        {
-          "UserName": "madelynmcclain@uneeq.com",
-          "FirstName": "Camacho",
-          "LastName": "Cote"
-        },
-        {
-          "UserName": "shawnapeterson@comtent.com",
-          "FirstName": "Lowe",
-          "LastName": "Bradford"
-        },
-        {
-          "UserName": "vaughanbender@panzent.com",
-          "FirstName": "Nieves",
-          "LastName": "Downs"
-        },
-        {
-          "UserName": "gillterry@cinaster.com",
-          "FirstName": "Roth",
-          "LastName": "Sims"
-        },
-        {
-          "UserName": "keithgray@isoplex.com",
-          "FirstName": "Fox",
-          "LastName": "Leblanc"
-        },
-        {
-          "UserName": "jodiecantu@housedown.com",
-          "FirstName": "Holland",
-          "LastName": "Mcfadden"
-        },
-        {
-          "UserName": "galenewton@songbird.com",
-          "FirstName": "Strong",
-          "LastName": "Guerra"
-        },
-        {
-          "UserName": "ilenelynch@xurban.com",
-          "FirstName": "Nielsen",
-          "LastName": "Alston"
-        }
-      ]
-    },
-    {
-      "Name": "Default Name",
-      "Users": [
-        {
-          "UserName": "beverlypadilla@sunclipse.com",
-          "FirstName": "Frazier",
-          "LastName": "Dyer"
-        },
-        {
-          "UserName": "janetwhitley@steeltab.com",
-          "FirstName": "Ashley",
-          "LastName": "Rowe"
-        },
-        {
-          "UserName": "mcconnellarmstrong@adornica.com",
-          "FirstName": "Williams",
-          "LastName": "Whitaker"
-        },
-        {
-          "UserName": "berthafleming@quonata.com",
-          "FirstName": "Pace",
-          "LastName": "Rollins"
-        },
-        {
-          "UserName": "merlekerr@zialactic.com",
-          "FirstName": "Osborn",
-          "LastName": "Merritt"
-        },
-        {
-          "UserName": "nataliemorrison@roughies.com",
-          "FirstName": "Greene",
-          "LastName": "Conway"
-        },
-        {
-          "UserName": "richardjimenez@talkalot.com",
-          "FirstName": "Humphrey",
-          "LastName": "Livingston"
-        },
-        {
-          "UserName": "ingrambarrett@yurture.com",
-          "FirstName": "Puckett",
-          "LastName": "Gould"
-        },
-        {
-          "UserName": "terrymarks@vendblend.com",
-          "FirstName": "Trevino",
-          "LastName": "Gillespie"
-        },
-        {
-          "UserName": "rosellamoss@geekular.com",
-          "FirstName": "Baldwin",
-          "LastName": "Maynard"
-        }
-      ]
-    }
-  ]
+  {
+    "UserName": "darlacarter@earthplex.com",
+    "FirstName": "Bennett",
+    "LastName": "Reed"
+  },
+  {
+    "UserName": "bowerstaylor@thredz.com",
+    "FirstName": "Farrell",
+    "LastName": "Weiss"
+  },
+  {
+    "UserName": "madelynmcclain@uneeq.com",
+    "FirstName": "Camacho",
+    "LastName": "Cote"
+  },
+  {
+    "UserName": "shawnapeterson@comtent.com",
+    "FirstName": "Lowe",
+    "LastName": "Bradford"
+  },
+  {
+    "UserName": "vaughanbender@panzent.com",
+    "FirstName": "Nieves",
+    "LastName": "Downs"
+  },
+  {
+    "UserName": "gillterry@cinaster.com",
+    "FirstName": "Roth",
+    "LastName": "Sims"
+  },
+  {
+    "UserName": "keithgray@isoplex.com",
+    "FirstName": "Fox",
+    "LastName": "Leblanc"
+  },
+  {
+    "UserName": "jodiecantu@housedown.com",
+    "FirstName": "Holland",
+    "LastName": "Mcfadden"
+  },
+  {
+    "UserName": "galenewton@songbird.com",
+    "FirstName": "Strong",
+    "LastName": "Guerra"
+  },
+  {
+    "UserName": "ilenelynch@xurban.com",
+    "FirstName": "Nielsen",
+    "LastName": "Alston"
+  },
+
+  {
+    "UserName": "beverlypadilla@sunclipse.com",
+    "FirstName": "Frazier",
+    "LastName": "Dyer"
+  },
+  {
+    "UserName": "janetwhitley@steeltab.com",
+    "FirstName": "Ashley",
+    "LastName": "Rowe"
+  },
+  {
+    "UserName": "mcconnellarmstrong@adornica.com",
+    "FirstName": "Williams",
+    "LastName": "Whitaker"
+  },
+  {
+    "UserName": "berthafleming@quonata.com",
+    "FirstName": "Pace",
+    "LastName": "Rollins"
+  },
+  {
+    "UserName": "merlekerr@zialactic.com",
+    "FirstName": "Osborn",
+    "LastName": "Merritt"
+  },
+  {
+    "UserName": "nataliemorrison@roughies.com",
+    "FirstName": "Greene",
+    "LastName": "Conway"
+  },
+  {
+    "UserName": "richardjimenez@talkalot.com",
+    "FirstName": "Humphrey",
+    "LastName": "Livingston"
+  },
+  {
+    "UserName": "ingrambarrett@yurture.com",
+    "FirstName": "Puckett",
+    "LastName": "Gould"
+  },
+  {
+    "UserName": "terrymarks@vendblend.com",
+    "FirstName": "Trevino",
+    "LastName": "Gillespie"
+  },
+  {
+    "UserName": "rosellamoss@geekular.com",
+    "FirstName": "Baldwin",
+    "LastName": "Maynard"
+  }
+]

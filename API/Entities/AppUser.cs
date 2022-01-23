@@ -12,10 +12,9 @@ namespace API.Entities
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime Created { get; set; } 
-        public School School { get; set; }
-        public int SchoolId { get; set; }
+        public DateTime Created { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
+        public ICollection<StudentEnrollment> StudentEnrolements { get; set; }
 
     }
 }

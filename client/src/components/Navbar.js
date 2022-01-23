@@ -19,7 +19,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import AppBar from "./Drawer/AppBar";
 import { connect } from "react-redux";
-import { openDrawer } from "../actions/openDrawer";
+import { openDrawer } from "../_actions/openDrawer";
 
 const mapStateToProps = (state) => {
   return {

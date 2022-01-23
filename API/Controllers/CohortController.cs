@@ -16,12 +16,12 @@ namespace API.Controllers
     {
         private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
-        private readonly ISchoolRepository schoolRepository;
+    
         private readonly ICohortRepository cohortRepository;
-        public CohortController(IMapper mapper, IUserRepository userRepository, ISchoolRepository schoolRepository,ICohortRepository cohortRepository)
+        public CohortController(IMapper mapper, IUserRepository userRepository,  ICohortRepository cohortRepository)
         {
             this.cohortRepository = cohortRepository;
-            this.schoolRepository = schoolRepository;
+            
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
@@ -30,21 +30,35 @@ namespace API.Controllers
         [Authorize(Policy = "RequireAdminRole")]
         public async Task<ActionResult<CohortDto>> CreateCohort(CohortDto cohortDto)
         {
-           
+
             var cohort = new Cohort
             {
-             
+
                 Name = cohortDto.Name,
                 ContextId = cohortDto.ContextId
             };
+            if (cohortDto.Id > 0)
+            {
+                cohort.Id = cohortDto.Id;
+            }
 
-            if(await this.cohortRepository.AddCohort(cohort)){
+            if (await this.cohortRepository.AddCohort(cohort))
+            {
                 return Ok(this.mapper.Map<CohortDto>(cohort));
             }
             return BadRequest("Failed to add the cohort");
 
 
 
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CohortDto>>> GetCohorts()
+        {
+            var id = User.GetUserId();
+            var user = await userRepository.GetMemberAsync(id);
+            IEnumerable<CohortDto> cohorts = await cohortRepository.GetCohorts();
+            return Ok(cohorts);
         }
 
     }

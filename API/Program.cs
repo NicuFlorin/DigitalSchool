@@ -25,11 +25,11 @@ namespace API
             try
             {
                 var context = services.GetRequiredService<DataContext>();
-                var schoolRepository = services.GetRequiredService<ISchoolRepository>();
+               
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedUsers(schoolRepository, userManager, roleManager);
+                await Seed.SeedUsers( userManager, roleManager);
             }
             catch (Exception ex)
             {

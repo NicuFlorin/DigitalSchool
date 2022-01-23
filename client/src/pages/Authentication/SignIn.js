@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { signIn } from "../../actions/loginActions";
+import { signIn } from "../../_actions/loginActions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
